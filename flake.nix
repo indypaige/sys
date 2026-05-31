@@ -11,8 +11,8 @@
           { extraSpecialArgs ? []
           , wallpaper        ? []
           , extraEnv         ? {}
+          , packages         ? []
           , modules          ? []
-          , inputs
           , output
           , email
           , home
@@ -23,7 +23,7 @@
               home-manager.extraSpecialArgs = extraSpecialArgs // {
                 inherit env;
 
-                inputs = map (x: x.packages.${system}.default) inputs;
+                packages = map (x: x.packages.${system}.default) packages;
               };
 
               home-manager.useUserPackages  = true;
@@ -40,4 +40,5 @@
               ];
             };
           };
-      }); }
+    });
+}
