@@ -8,14 +8,13 @@
   outputs = { nixpkgs, flake-utils, home-manager, ... }:
     flake-utils.lib.eachDefaultSystem (system: {
         build = host:
-          { extraSpecialArgs ? []
+          { extraSpecialArgs ? {}
           , wallpaper        ? []
           , extraEnv         ? {}
           , packages         ? []
           , modules          ? []
           , output
           , email
-          , user
           , home
           , ssh
           }@builder: let
@@ -28,7 +27,7 @@
               };
 
               home-manager.useUserPackages  = true;
-              home-manager.users.${user}    = home;
+              home-manager.users.${host}    = home;
               home-manager.useGlobalPkgs    = true;
             };
           in {
