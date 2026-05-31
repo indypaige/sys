@@ -13,6 +13,7 @@
       , modules          ? []
       , output
       , email
+      , user
       , home
       , ssh
       }@builder: let
@@ -25,7 +26,7 @@
           };
 
           home-manager.useUserPackages  = true;
-          home-manager.users.${host}    = home;
+          home-manager.users.${user}    = home;
           home-manager.useGlobalPkgs    = true;
         };
       in {
