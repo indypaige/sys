@@ -5,12 +5,13 @@
   };
 
   outputs = { nixpkgs, home-manager, ... }: {
-    mk = system: host:
+    mk = host:
       { extraSpecialArgs ? {}
       , wallpaper        ? []
       , extraEnv         ? {}
       , packages         ? []
       , modules          ? []
+      , system           ? "x86_64-linux"
       , output
       , email
       , user
@@ -19,11 +20,7 @@
       }@builder: let
         env  = extraEnv // builder;
         hm   = {
-          home-manager.extraSpecialArgs = extraSpecialArgs // {
-            env      = env;
-
-            packages = map (x: x.packages.${system}.default) packages;
-          };
+          home-manager.extraSpecialArgs = extraSpecialArgs // { inherit env; };
 
           home-manager.useUserPackages  = true;
           home-manager.users.${user}    = home;
