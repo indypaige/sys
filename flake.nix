@@ -20,7 +20,7 @@
         env  = extraEnv // builder;
         hm   = {
           home-manager.extraSpecialArgs = extraSpecialArgs // {
-            inherit env;
+            env      = env;
 
             packages = map (x: x.packages.${system}.default) packages;
           };
