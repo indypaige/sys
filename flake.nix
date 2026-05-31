@@ -15,11 +15,12 @@
           , modules          ? []
           , output
           , email
+          , user
           , home
           , ssh
           }@builder: let
             env  = extraEnv // builder;
-            home = {
+            hm   = {
               home-manager.extraSpecialArgs = extraSpecialArgs // {
                 inherit env;
 
@@ -27,7 +28,7 @@
               };
 
               home-manager.useUserPackages  = true;
-              home-manager.users.${host}    = home;
+              home-manager.users.${user}    = home;
               home-manager.useGlobalPkgs    = true;
             };
           in {
@@ -36,7 +37,7 @@
 
               modules = modules ++ [
                 home-manager.nixosModules.home-manager
-                home
+                hm
               ];
             };
           };
