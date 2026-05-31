@@ -18,9 +18,9 @@
           , home
           , ssh
           }@builder: let
-            env  = extraEnv / builder;
+            env  = extraEnv // builder;
             home = {
-              home-manager.extraSpecialArgs = extraSpecialArgs / {
+              home-manager.extraSpecialArgs = extraSpecialArgs // {
                 inherit env;
 
                 inputs = map (x: x.packages.${system}.default) inputs;
